@@ -1,0 +1,405 @@
+@media (min-width:1920px) {
+}
+@media (max-width:1850px) {
+
+}
+@media (max-width:1650px) {
+
+}
+@media (max-width:1500px) {
+.menu-col ul li a {
+    font-size: 18px;
+}
+.cur-col select {
+    font-size: 18px;
+    padding: 6px 40px 9px 15px;
+}
+.cur-down {
+    font-size: 22px;
+    top: 10px;
+}
+.b-w-table thead td {
+    font-size: 16px;
+    padding: 15px;
+}
+.b-w-table td {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+.b-w-table td:first-child {
+    padding-left: 20px;
+}
+.b-w-table {
+    max-height: 360px;
+}
+.banner-bear {
+    font-size: 22px;
+}
+.banner-bull {
+    font-size: 22px;
+}
+.md-nav-left ul li a {
+    font-size: 18px;
+}
+.md-nav-right li a {
+    font-size: 18px;
+}
+.md-nav-sec {
+    padding: 15px 0;
+}
+.btn-red {
+    font-size: 13px;
+    padding: 10px 10px 11px;
+}
+.left-bar .cur-col select {
+    font-size: 13px;
+}
+.left-bar .cur-down {
+    right: 15px;
+    top: 6px;
+}
+.radio-group p {
+    padding-left: 25px;
+    font-size: 13px;
+}
+.left-bar {
+    padding: 15px;
+}
+.right-col .b-w-table td {
+    padding: 5px 8px;
+}
+.right-col .b-w-table {
+    max-height: 295px;
+}
+.right-col .b-w-sm {
+    max-height: 260px;
+}
+.right-col .b-w-sm {
+    max-height: 247px;
+}
+.right-col .b-w-table td {
+    padding: 6px 8px;
+    font-size: 12px;
+}
+.right-col .b-w-table thead td {
+    font-size: 13px;
+    padding: 6px 8px;
+}
+.footer a, .footer p {
+    font-size: 14px;
+}
+.footer h4 {
+    font-size: 18px;
+}
+.sub-form input[type="text"] {
+    height: 44px;
+    padding: 5px 13px;
+    font-size: 14px;
+}
+.sub-form button {
+    width: 60px;
+    height: 44px;
+}
+ul.social-link {
+    margin-bottom: 30px;
+}
+.footer-bottom {
+    padding: 15px 0;
+}
+}
+@media (max-width:1250px) {
+.logo-col {
+    max-width: 120px;
+}
+.b-w-table td {
+    padding: 6px 8px;
+    font-size: 13px;
+}
+.b-w-table td:first-child {
+    padding-left: 12px;
+}
+.b-w-table {
+    height: 282px;
+}
+.md-nav-left ul li a {
+    font-size: 15px;
+}
+.md-nav-left ul li {
+    margin-right: 15px;
+}
+.md-nav-right li a {
+    font-size: 15px;
+}
+.md-nav-right li {
+    margin-left: 15px;
+}
+.md-nav-right {
+    text-align: right;
+    width: 265px;
+    padding: 0 15px;
+}
+.md-nav-left {
+    width: calc(100% - 270px);
+    padding: 0 15px;
+}
+.container {
+    width: 100%;
+    padding: 0 20px;
+}
+.right-col .b-w-table {
+    height: 230px;
+}
+#reg-Modal .modal-dialog {
+    max-width: 900px;
+    width: 90%;
+}
+.parfo-btn-list a, .parfo-btn {
+    font-size: 14px;
+}
+.tab-menu ul li a {
+    padding: 15px 20px;
+    font-size: 14px;
+}
+.tab-menu ul.screen-list li {
+    padding: 0 5px;
+}
+ul.check-box-group .control {
+    font-size: 16px;
+}
+}
+@media (max-width:1170px) {
+
+}
+ @media (max-width:991px) {
+.left-col {
+    width: 35%;
+}
+.right-col {
+    width: 65%;
+}
+.right-bar-col1 {
+    width: 100%; margin-bottom: 30px;
+}
+.right-bar-col2 {
+    width: 55%;
+}
+.right-bar-col3 {
+    width: 100%;
+}
+.right-col .b-w-table {
+    height: 270px;
+}
+.right-bar-col4 {
+    width: 100%;
+}
+.right-bar-col5, .right-bar-col-6 {
+    width: 100%;
+}
+.right-bar-col-3 {
+    width: 100%;
+}
+.right-bar-col-3,  .right-bar-col-5 {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.mo-col-6 {
+    width: 45%;
+}
+.md-nav-left {
+    display: none;
+}
+.mid-nav {
+    position: absolute;
+    color: #fff;
+    left: 20px;
+    font-size: 22px;
+    display: block;
+}
+.menu-col ul li a {
+    font-size: 16px;
+}
+.cur-col select {
+    font-size: 16px;
+    padding: 6px 40px 9px 15px;
+}
+.cur-down {
+    font-size: 22px;
+    top: 8px;
+}
+.md-nav-row {
+    justify-content: end;
+}
+.tab-menu ul li a {
+    padding: 15px 15px;
+    font-size: 14px;
+}
+.left-filter ul li a {
+    font-size: 14px;
+}
+.tab-menu ul.screen-list li img {
+    margin-right: 4px;
+    max-width: 16px;
+}
+.tab-menu ul.screen-list li {
+    padding: 0;
+}
+.tab-menu {
+    flex-wrap: wrap;
+}
+.filter-map .left-col {
+    width: 33%;
+}
+.filter-map .right-col {
+    width: 67%;
+}
+}
+@media screen and (max-width: 767px) {
+#cssmenu #menu-button {
+    right: 0px;
+}
+#cssmenu #menu-button {
+    right: 0;
+    display: block;
+    color: #fff;
+    position: absolute;
+    font-size: 22px;
+    top: -44px;
+}
+.banner-img-row {
+    background: #35383D;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+.left-col {
+    width: 100%;
+}
+.right-col {
+    width: 100%;
+}
+.right-bar-col2 {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.mo-col-6 {
+    width: 100%;
+}
+.right-bar-col {
+    margin-bottom: 20px;
+}
+.right-col .b-w-table {
+    height: 235px;
+}
+.right-bar-col4 {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.right-bar-col-4 {
+    padding: 0 15px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.right-bar-col-6 {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.menu-col {
+    width: 100%;
+    position: relative;
+}
+.menu-col .cur-col {
+    padding: 0 30px;
+    position: absolute;
+    right: 7px;
+    top: -47px;
+}
+.md-nav-left {
+    width: 100%;
+    padding: 0 23px 10px;
+    position: absolute;
+    background: #35383D;
+    top: 65px;
+    z-index: 1;
+}
+.md-nav-right {
+    width: 100%;
+}
+.md-nav-sec {
+    position: relative;
+}
+.md-nav-left ul li {
+    margin-right: 0;
+    width: 100%;
+    padding-bottom: 5px;
+}
+.footer-bottom {
+    padding: 10px 0;
+}
+.search-container input[type="text"] {
+    padding: 9px 15px;
+    min-height: 42px;
+}
+.search-container button {
+    width: 85px;
+    height: 42px;
+}
+.search-container {
+    padding-right: 80px;
+}
+.modal-content {
+    border-radius: 12px;
+    padding: 0;
+}
+.field input:placeholder-shown + label {
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+.modal h3 {
+    margin: 10px 0;
+    font-weight: 700;
+    font-size: 26px;
+}
+.field input {
+    padding: 0 0 5px;
+    font-size: 16px;
+}
+.field input:not(:placeholder-shown) + label, .field input:focus + label {
+    font-size: 12px;
+}
+.field-btn .custom-btn {
+    font-size: 18px;
+    padding: 10px;
+}
+.login-box p {
+    font-size: 16px;
+    margin: 0;
+}
+.modal-content button.close {
+    right: 8px;
+    top: -5px;
+    font-size: 36px;
+}
+#reg-Modal .modal-dialog {
+    max-width: 900px;
+    width: 90%;
+    margin: 30px auto;
+}
+.filter-map .left-col {
+    width: 100%;
+}
+.filter-map .right-col {
+    width: 100%;
+}
+.tab-menu {
+    flex-wrap: wrap;
+    padding-bottom: 15px;
+}
+}
+@media screen and (max-width: 639px) {
+
+}
+@media screen and (max-width: 479px) {
+
+}
+@media screen and (max-width: 400px) {
+}

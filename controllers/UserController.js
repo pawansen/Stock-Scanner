@@ -42,8 +42,6 @@ exports.register = [
 				}
 			});
 		}),
-    body("address").isLength({min:1}).trim().withMessage("Address must be specified."),
-    body("deviceType").isLength({min:1}).trim().withMessage("Device Type must be specified Web,Android,Ios."),
     body("phoneNo").isLength({min:10}).trim().withMessage("Phone Number must be 10 characters.").isNumeric().
     withMessage('Phone Number should be numeric only').custom((value)=>{
     	return UserModel.User.findOne({phoneNo:value}).then((user)=>{
@@ -61,8 +59,9 @@ exports.register = [
 			// Extract the validation errors from a request.
 			const errors = validationResult(req);
 			if(!errors.isEmpty()){
-				return apiResponse.validationErrorWithData(res,"Validation Error.", errors.array());
+				return apiResponse.validationErrorWithData(res,"Validation Error.", errors.array()[0].msg);
 			}else{
+				
 				bcrypt.hash(req.body.password,10,function(err,hash){
 
 					// generate OTP for confirmation
@@ -78,12 +77,11 @@ exports.register = [
 							city: req.body.city,
 							companyName: req.body.companyName,
 							country: req.body.country,
-							address: req.body.address,
 							phoneNo: req.body.phoneNo,
 							password: hash,
 							confirmOTP: otp,
-							userType:req.body.userType,
-							deviceType:req.body.deviceType,
+							userType:"Person",
+							deviceType:"Web",
 							inviteCode:utility.randomNumber(8),
 							ipAddress:ip.address(),
 						};
@@ -680,6 +678,7 @@ exports.socialSignIn = [
 				var deviceType = req.body.deviceType;
 				var sourceSocialId = req.body.sourceSocialId;
 				var keyward = (req.body.email) ? req.body.email : req.body.phoneNo;
+				var fullName = firstName + " "+lastName;
 				/*if(!keyward){
 					return apiResponse.unauthorizedResponse(res,"Email / Phone must be specified.");
 				}
@@ -789,7 +788,7 @@ exports.socialSignIn = [
 											userData.paymentMode = userResponse[0].paymentMode;
 											userData.sourceType = userResponse[0].sourceType;
 											userData.sourceSocialId = userResponse[0].sourceSocialId;
-											userData.inviteLink = "Hey, I'm on PlayDate . Join me! Download it here: "+constants.baseUrl+"/"+userResponse[0].inviteCode+" and use promo code "+userResponse[0].inviteCode+" and earn "+constants.referralPoints+" PlayDate Coins.";
+											//userData.inviteLink = "Hey, I'm on PlayDate . Join me! Download it here: "+constants.baseUrl+"/"+userResponse[0].inviteCode+" and use promo code "+userResponse[0].inviteCode+" and earn "+constants.referralPoints+" PlayDate Coins.";
 											let userSession ={
 												userID:userResponse[0]._id,
 												sessionKey:utility.randomValueHex(32),
@@ -819,7 +818,7 @@ exports.socialSignIn = [
 										users.fullName = (fullName) ? fullName : null;
 										users.phoneNo = (phoneNo) ? phoneNo : null;
 										users.email = (email) ? email : null;
-										users.userType = (userType) ? userType : null;
+										//users.userType = (userType) ? userType : null;
 										users.deviceType = deviceType;
 										users.sourceType = sourceType;
 										users.sourceSocialId = sourceSocialId;
@@ -834,7 +833,7 @@ exports.socialSignIn = [
 												return apiResponse.ErrorResponse(res, err);
 											}
 											UserModel.User.findOne(where).then(userResponse =>{
-											if(userResponse){
+											if(userResponse){ 
 													/** account creation **/
 													let userAccounts ={
 														userId:userResponse._id,
@@ -874,7 +873,7 @@ exports.socialSignIn = [
 													userData.paymentMode = userResponse.paymentMode;
 													userData.sourceType = userResponse.sourceType;
 													userData.sourceSocialId = userResponse.sourceSocialId;
-													userData.inviteLink = "Hey, I'm on PlayDate . Join me! Download it here: "+constants.baseUrl+"/"+userResponse.inviteCode+" and use promo code "+userResponse.inviteCode+" and earn "+constants.referralPoints+" PlayDate Coins.";
+													//userData.inviteLink = "Hey, I'm on PlayDate . Join me! Download it here: "+constants.baseUrl+"/"+userResponse.inviteCode+" and use promo code "+userResponse.inviteCode+" and earn "+constants.referralPoints+" PlayDate Coins.";
 													let userSession ={
 														userID:userResponse._id,
 														sessionKey:utility.randomValueHex(32),
@@ -994,7 +993,7 @@ exports.socialSignIn = [
 													userData.paymentMode = userResponse.paymentMode;
 													userData.sourceType = userResponse.sourceType;
 													userData.sourceSocialId = userResponse.sourceSocialId;
-													userData.inviteLink = "Hey, I'm on PlayDate . Join me! Download it here: "+constants.baseUrl+"/"+userResponse.inviteCode+" and use promo code "+userResponse.inviteCode+" and earn "+constants.referralPoints+" PlayDate Coins.";
+													//userData.inviteLink = "Hey, I'm on PlayDate . Join me! Download it here: "+constants.baseUrl+"/"+userResponse.inviteCode+" and use promo code "+userResponse.inviteCode+" and earn "+constants.referralPoints+" PlayDate Coins.";
 													let userSession ={
 														userID:userResponse._id,
 														sessionKey:utility.randomValueHex(32),
@@ -3734,7 +3733,7 @@ exports.addYahooStockData = [
 				  url: 'https://yfapi.net/v6/finance/quote',
 				  params: {region: 'US',lang:'en',symbols:"AAPL"},
 				  headers: {
-				    'x-api-key': 'cCW73wb9SV4eRlQZZtNr68KjFOSOv4Hn8aRYMKKu'
+				    'x-api-key': 'wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI'
 				  }
 				};
 

@@ -21,22 +21,11 @@ require("dotenv").config();
 var mongoose = require('mongoose');
 var apiResponse = require("./helpers/apiResponse");
 var apiRouter = require('./routes/api');
+const axios = require('axios').default;
 /* To set port */
 app.set('port', process.env.PORT || 3100);
 
-/*app.use(helmet());
-
-app.use(helmet.contentSecurityPolicy());
-app.use(helmet.dnsPrefetchControl());
-app.use(helmet.expectCt());
-app.use(helmet.frameguard());
-app.use(helmet.hidePoweredBy());
-app.use(helmet.hsts());
-app.use(helmet.ieNoOpen());
-app.use(helmet.noSniff());
-app.use(helmet.permittedCrossDomainPolicies());
-app.use(helmet.referrerPolicy());
-app.use(helmet.xssFilter());*/
+const PORT = process.env.PORT || 3100
 
 /* To handle invalid JSON data request */
 app.use(bodyParser.json({limit: '50mb'}));
@@ -92,9 +81,10 @@ app.use(function(req,res,next){
 
 });
 
+
 /** set upload directory **/
 app.use(express.static(__dirname + '/uploads'));
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 /** listen server **/
 server.listen(app.get('port'),function(){
@@ -102,35 +92,122 @@ server.listen(app.get('port'),function(){
 	loggerMessage.info(`Stock Scanner listening on port ${app.get('port')}`);
 });
 
+app.get("/forex", function(req, res) {
+
+   res.render('forex.ejs');
+	
+});
+
+app.get("/futures", function(req, res) {
+
+   res.render('futures.ejs');
+	
+});
+
+app.get("/insider", function(req, res) {
+
+   res.render('insider.ejs');
+	
+});
+
+app.get("/map", function(req, res) {
+
+   res.render('map.ejs');
+	
+});
+
+app.get("/relative-performance", function(req, res) {
+
+   res.render('relative_performance.ejs');
+	
+});
+
+
+
+
+app.get("/", function(req, res) {
+
+				var optionsBond = {
+				  method: 'GET',
+				  url: 'https://yfapi.net/v6/finance/quote',
+				  params: {lang: "en",region:"US",symbols:"^IRX,^FVX,^TNX,^TYX"},
+				  headers: {
+				    'x-api-key': 'wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI'
+				  }
+				};
+
+				var optionsFuture = {
+				  method: 'GET',
+				  url: 'https://yfapi.net/v6/finance/quote/marketSummary',
+				  params: {lang: "en",region:"US"},
+				  headers: {
+				    'x-api-key': 'wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI'
+				  }
+				};
+
+
+				var options = {
+				  method: 'GET',
+				  url: 'https://yfapi.net/ws/screeners/v1/finance/screener/predefined/saved?count=10&scrIds=day_gainers',
+				  //params: {lang: "en",region:"US",symbols:"^IRX,^FVX,^TNX,^TYX"},
+				  headers: {
+				    'x-api-key': 'wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI'
+				  }
+				};
+
+				axios.request(options).then(function (response) {
+
+					axios.request(optionsFuture).then(function (responseFuture) {
+
+
+				axios.request(optionsBond).then(function (responseBond) {
+				
+						res.render('index.ejs',
+							{ "stockList": response.data.finance.result[0].quotes,
+							  "futures": responseFuture.data.marketSummaryResponse.result,
+							  "forexBond":responseBond.data.quoteResponse.result,
+							  "message":"",
+						      }
+							);
+
+
+				}).catch(function (error) {
+					console.error(error);
+				});
+
+					}).catch(function (error) {
+						console.error(error);
+					});
+					
+
+				}).catch(function (error) {
+					console.error(error);
+				});
+	
+});
+
 app.use("/api/", apiRouter);
 
 /*throw 404 if URL not found*/
-/*app.all("*", function(req, res) {
-	return apiResponse.notFoundResponse(res, "Page not found");
-});*/
-app.get("/", function(req, res) {
-	return apiResponse.notFoundResponse(res, "Page not found");
-});
+// app.get("/", function(req, res) {
+// 	return apiResponse.notFoundResponse(res, "Page not found");
+// });
 
-/** chat module **/
 
-app.get("/chat", function(req, res) {
-	res.render('index.ejs');
-});
 
 /** socket connection**/
 //io.adapter(redis({ host: 'localhost', port: 6379 }));
-io.sockets.on('connection',function(socket){
-	const Socket = require('./controllers/ChatController.js'); 
-	console.log('----------- Socket Connection --------------');
-	socket.on('chat_message', function(data){
-	    io.sockets.emit('chat_message', data);
-	});
-	socket.on('chat_message_ios', function(data){
-	    socket.emit('chat_message_ios', data);
-	});
-	new Socket(socket,io.sockets);
-});
+// io.sockets.on('connection',function(socket){
+// 	const Socket = require('./controllers/ChatController.js'); 
+// 	console.log('----------- Socket Connection --------------');
+// 	socket.on('chat_message', function(data){
+// 	    io.sockets.emit('chat_message', data);
+// 	});
+// 	socket.on('chat_message_ios', function(data){
+// 	    socket.emit('chat_message_ios', data);
+// 	});
+// 	new Socket(socket,io.sockets);
+// });
 
 app.use((err, req, res) => {
 	if(err.name == "UnauthorizedError"){
