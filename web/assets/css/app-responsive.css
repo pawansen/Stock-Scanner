@@ -106,6 +106,30 @@ ul.social-link {
 .footer-bottom {
     padding: 15px 0;
 }
+.nor-menu-in ul li {
+    font-size: 18px;
+    padding: 0 15px;
+}
+.nor-menu {
+    padding: 15px 0;
+}
+.tab-teaser .tic-sym-table-full-w .b-w-table thead td {
+    font-size: 15px;
+    padding: 10px;
+}
+.tab-teaser .tic-sym-table-full-w .b-w-table td {
+    font-size: 15px;
+}
+.news-text h4 {
+    font-size: 16px;
+}
+.news-text h4 a {
+    color: #AB0D13;
+}
+.news-text p {
+    font-size: 15px;
+}
+
 }
 @media (max-width:1250px) {
 .logo-col {
@@ -157,7 +181,7 @@ ul.social-link {
     font-size: 14px;
 }
 .tab-menu ul li a {
-    padding: 15px 20px;
+    padding: 15px 10px;
     font-size: 14px;
 }
 .tab-menu ul.screen-list li {
@@ -165,6 +189,12 @@ ul.social-link {
 }
 ul.check-box-group .control {
     font-size: 16px;
+}
+.portfolio-row {
+    width: 100%;
+}
+.account-head {
+    padding: 10px 20px;
 }
 }
 @media (max-width:1170px) {
@@ -227,10 +257,10 @@ ul.check-box-group .control {
     top: 8px;
 }
 .md-nav-row {
-    justify-content: end;
+    justify-content: end; position: relative;
 }
 .tab-menu ul li a {
-    padding: 15px 15px;
+    padding: 12px 12px;
     font-size: 14px;
 }
 .left-filter ul li a {
@@ -251,6 +281,34 @@ ul.check-box-group .control {
 }
 .filter-map .right-col {
     width: 67%;
+}
+.md-nav-left {
+    width: 100%;
+    padding: 0 23px 10px;
+    position: absolute;
+    background: #35383D;
+    top: 65px;
+    z-index: 9;
+}
+.md-nav-left ul li {
+    margin-right: 0;
+    width: 100%;
+    padding-bottom: 5px;
+}
+ul.portfolio-nav {
+    margin: 0 -13px;
+}
+ul.portfolio-nav li {
+    padding: 7px 10px;
+}
+ul.portfolio-nav li a {
+    font-size: 13px;
+}
+.portfolio {
+    padding-left: 75px;
+}
+#edit-Modal .modal-dialog, #veiw-Modal .modal-dialog, #create-Modal .modal-dialog {
+    max-width: 90%; margin: 30px auto;
 }
 }
 @media screen and (max-width: 767px) {
@@ -319,7 +377,7 @@ ul.check-box-group .control {
     position: absolute;
     background: #35383D;
     top: 65px;
-    z-index: 1;
+    z-index: 9;
 }
 .md-nav-right {
     width: 100%;
@@ -364,7 +422,7 @@ ul.check-box-group .control {
     font-size: 16px;
 }
 .field input:not(:placeholder-shown) + label, .field input:focus + label {
-    font-size: 12px;
+    font-size: 12px; margin-bottom: 8px;
 }
 .field-btn .custom-btn {
     font-size: 18px;
@@ -393,6 +451,59 @@ ul.check-box-group .control {
 .tab-menu {
     flex-wrap: wrap;
     padding-bottom: 15px;
+}
+ul.portfolio-nav li:after { display:none;}
+.my-account {
+    padding: 20px;
+    margin: 30px 0;
+}
+.my-acc-text {
+    font-size: 16px;
+}
+.page-next {
+    justify-content: center;
+}
+.my-acc-setting {
+    font-size: 14px;
+}
+.my-acc-setting a {
+    padding: 0 10px;
+}
+.my-acc-setting a:after {
+    width: 1px;
+    height: 15px;
+}
+.my-acc-text-sm {
+    font-size: 15px;
+}
+.account-tetail {
+    padding: 15px;
+}
+.account-tetail label {
+    margin-bottom: 7px;
+}
+.acc-select {
+    margin: 0 0 13px;
+}
+.btn-col .custom-btn {
+    font-size: 16px;
+    padding: 8px 18px;
+    margin: 5px;
+}
+.col-md-12.pt-4 {
+    padding-top: 0 !important;
+}
+.sm-modal {
+    width: 80%;
+}
+.sm-modal .field-btn .custom-btn {
+    max-width: 200px;
+}
+.modal-icon {
+    padding: 15px 0;
+}
+.modal-icon img {
+    max-width: 60px;
 }
 }
 @media screen and (max-width: 639px) {

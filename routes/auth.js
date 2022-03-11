@@ -1,6 +1,7 @@
 var express = require("express");
 const UserController = require("../controllers/UserController");
 const StockController = require('../controllers/StockController');
+const StockCronController = require('../controllers/StockCronController');
 var router = express.Router();
 
 /**user controller**/
@@ -29,5 +30,8 @@ router.get('/get-most-active-stock-list',StockController.getMostActiveStockList)
 router.get('/get-stock-symbol',StockController.getSymbol);
 router.get('/get-stock-data',StockController.addYahooStockData);
 
+
+/** crons **/
+router.get('/cron/get-exchange-details',StockCronController.getExchangeDetails);
 
 module.exports = router;

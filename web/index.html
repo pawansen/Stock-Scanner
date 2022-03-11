@@ -135,13 +135,13 @@
                 <ul>
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Portfolio</a></li>
-                    <li><a href="map.html">Maps</a></li>
-                    <li><a href="relative-performance.html">Relative performance</a></li>
-                    <li><a href="futures.html">Futures</a></li>
-                    <li><a href="forex.html">Forex</a></li>
+                    <li><a href="#">Maps</a></li>
+                    <li><a href="#">Relative performance</a></li>
+                    <li><a href="#">Futures</a></li>
+                    <li><a href="#">Forex</a></li>
                     <li><a href="#">Crypto</a></li>
                     <li><a href="#">News</a></li>
-                    <li><a href="insider.html">Insider</a></li>
+                    <li><a href="#">Insider</a></li>
                 </ul>   
             </div>
             <div class="md-nav-right">
@@ -565,15 +565,21 @@
                     <div class="row">
                         <div class="right-bar-col-4">
                             <h2>Dow</h2>
-                            <div class="graph-img"><a href="#"><img src="assets/images/graph-img3.jpg" alt="" /></a></div>
+                            <div class="graph-img">
+                            	<div id="myDiv"></div>
+                            </div>
                         </div>
                         <div class="right-bar-col-4">
                             <h2>Nasdaq</h2>
-                            <div class="graph-img"><a href="#"><img src="assets/images/graph-img2.png" alt="" /></a></div>
+                            <div class="graph-img">
+                            	<div id="myDiv1"></div>
+                            </div>
                         </div>
                         <div class="right-bar-col-4">
                             <h2>S&P 500</h2>
-                            <div class="graph-img"><a href="#"><img src="assets/images/graph-img3.jpg" alt="" /></a></div>
+                            <div class="graph-img">
+                            	<div id="myDiv2"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1397,7 +1403,7 @@
 <script src="./assets/js/bootstrap.min.js"></script>
 <script src="./assets/js/owl.carousel.js"></script>
 <script src="https://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="./assets/js/main.js"></script>
 
 <script type="text/javascript">
@@ -1406,6 +1412,146 @@
             $(".content").mCustomScrollbar();
         });
     })(jQuery);
+	
+	
+	(function() {
+var d3 = Plotly.d3;
+
+//var WIDTH_IN_PERCENT_OF_PARENT = 60,
+    //HEIGHT_IN_PERCENT_OF_PARENT = 80;
+
+var gd3 = d3.select('body')
+    .append('div')
+    .style({
+        //width: WIDTH_IN_PERCENT_OF_PARENT + '%',
+        //'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+
+        //height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
+        //'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+    });
+
+var gd = gd3.node();
+
+var volData = {
+	x: [
+			"2017-02-13","2017-02-20","2017-02-27","2017-03-06","2017-03-13","2017-03-20","2017-03-27","2017-04-03","2017-04-10","2017-04-17","2017-04-24","2017-05-01","2017-05-08","2017-05-15","2017-05-22","2017-05-29","2017-06-05","2017-06-12","2017-06-19","2017-06-26","2017-07-03","2017-07-10","2017-07-17","2017-07-24","2017-07-31","2017-08-07","2017-08-14","2017-08-21","2017-08-28","2017-09-04","2017-09-11","2017-09-18","2017-09-25","2017-10-02","2017-10-09","2017-10-16","2017-10-23","2017-10-30","2017-11-06","2017-11-13","2017-11-20","2017-11-27","2017-12-04","2017-12-11","2017-12-18","2017-12-25","2018-01-01","2018-01-08","2018-01-15","2018-01-22","2018-01-29","2018-02-05"
+		 ],
+	y: [		 "106671000","119269000","128804000","123336000","104382000","98192000","111674000","121474000","120084000","128093000","137799000","161455000","185449000","215768000","231089000","255088000","295391000","255042000","258789000","251845000","251917000","191877000","274511000","275562000","321364000","409446000","408264000","433738000","463639000","424036000","366756000","366854000","437271000","458710000","569975000","603433000","613552000","742447000","590965000","802205000","935575000","1137301000","1538854000","1939168000","1427974000","1463718000","1736999000","1440996000","1184023000","1179981000","817271000","828858000"
+		 ],
+	type: 'bar',
+	name: '',
+	marker: {
+		color: '#00DE8D',
+	},
+	showlegend: false,
+};
+var priceData = {
+	x: [
+			"2017-02-13","2017-02-20","2017-02-27","2017-03-06","2017-03-13","2017-03-20","2017-03-27","2017-04-03","2017-04-10","2017-04-17","2017-04-24","2017-05-01","2017-05-08","2017-05-15","2017-05-22","2017-05-29","2017-06-05","2017-06-12","2017-06-19","2017-06-26","2017-07-03","2017-07-10","2017-07-17","2017-07-24","2017-07-31","2017-08-07","2017-08-14","2017-08-21","2017-08-28","2017-09-04","2017-09-11","2017-09-18","2017-09-25","2017-10-02","2017-10-09","2017-10-16","2017-10-23","2017-10-30","2017-11-06","2017-11-13","2017-11-20","2017-11-27","2017-12-04","2017-12-11","2017-12-18","2017-12-25","2018-01-01","2018-01-08","2018-01-15","2018-01-22","2018-01-29","2018-02-05"
+		 ],
+	y: [
+			 "1066.71476","1192.69017","1288.04382","1233.36892","1043.82255","981.92184","1116.74288","1214.74144","1200.84554","1280.93272","1377.99006","1614.55111","1854.49127","2157.68164","2310.89376","2550.88279","2953.91060","2550.42476","2587.89596","2518.45271","2519.17235","1918.77128","2745.11013","2755.62622","3213.64877","4094.46028","4082.64470","4337.38721","4636.39321","4240.36179","3667.56553","3668.54195","4372.71617","4587.10126","5699.75295","6034.33850","6135.52924","7424.47237","5909.65211","8022.05538","9355.75718","11373.01182","15388.54937","19391.68533","14279.74194","14637.18710","17369.99165","14409.96572","11840.23174","11799.81601","8172.71758","8288.58703"
+		 ],
+	yaxis: 'y2',
+	type: 'scatter',
+	name: '',
+	//mode: 'lines+markers',
+	line: {
+		color: '#00DE8D'
+	},
+	fill: 'tozeroy',
+	fillcolor: 'rgba(0,222,141,0.1)', // this just needs to be the line color @ 10% opacity
+	showlegend: false,
+};
+var data = [volData, priceData];
+
+var layout = {
+	height: 260,
+	spikedistance: 420, // should match height
+	margin: {
+		t: 30,
+		b: 42,
+		l: 54,
+		r: 30
+	},
+	font: {
+		family: 'Roboto Mono, Droid Sans Mono, monospace',
+		size: 12,
+		color: '#93979E'
+	},
+	hoverlabel: {
+		bgcolor: 'rgba(24,25,26,0.8)',
+		bordercolor: 'transparent',
+		font: {
+			family: 'roboto mono',
+			size: 12,
+			color: '#fff'
+		}
+	},
+	xaxis: {
+		showline: true,
+		linecolor: '#E6E8EC',
+		type: 'date',
+		showgrid: false,
+		ticks: 'outside',
+		tickcolor: '#E6E8EC',
+		ticklen: 9,
+		showspikes: true,
+		spikecolor: '#93979E',
+		spikethickness: 1,
+		spikedash: '3px,3px',
+		spikemode: 'across',
+		spikesnap: 'cursor',
+	},
+	yaxis: { // Volume Chart
+		domain: [0, 0.15],
+		fixedrange: true,
+		zeroline: true,
+		zerolinecolor: '#E6E8EC',
+		nticks: 3,
+	},
+	yaxis2: { // Price Chart
+		domain: [0.225, 1],
+		fixedrange: true,
+		showline: false,
+		zeroline: true,
+		zerolinecolor: '#E6E8EC',
+		showspikes: false,
+		spikecolor: '#93979E',
+		spikethickness: 1,
+		spikedash: '3px,3px',
+		spikemode: 'across',
+		tickprefix: '$',
+	},
+	images: [
+    {
+      x: .975,
+      y: .375,
+      sizex: 0.15,
+      sizey: 0.15,
+      source: "https://i.imgur.com/yZVKKnY.png",
+      xanchor: "right",
+      xref: "paper",
+      yanchor: "top",
+      yref: "paper",
+		opacity: .175,
+    }
+  ],
+};
+
+var hideOptions = {displayModeBar: false};
+
+Plotly.newPlot('myDiv', data, layout, hideOptions);
+Plotly.newPlot('myDiv1', data, layout, hideOptions);
+Plotly.newPlot('myDiv2', data, layout, hideOptions);
+
+window.onresize = function() {
+    Plotly.Plots.resize('myDiv', gd, data, layout, hideOptions);
+	Plotly.Plots.resize('myDiv1', gd, data, layout, hideOptions);
+	Plotly.Plots.resize('myDiv2', gd, data, layout, hideOptions);
+};
+  
+})();
 </script>
 </body>
 

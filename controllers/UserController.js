@@ -2174,7 +2174,7 @@ exports.getProfileDetails = [
  		try{
  			var errors = validationResult(req);
  			if(!errors.isEmpty()){
- 				return apiResponse.validationErrorWithData(res,"Validation Error.",errors.array());
+ 				return apiResponse.validationErrorWithData(res,"Validation Error.", errors.array()[0].msg);
  			}else{
 
  				UserModel.User.aggregate([
@@ -2300,24 +2300,17 @@ exports.getProfileDetails = [
 						 	age: 1,
 						 	relationship:1,
 						 	personalBio: 1,
-						 	interestedIn: 1,
 						 	paymentMode: 1,
 						 	onlineStatus: 1,
 						 	inviteCode: 1,
 						 	status: 1,
 						 	businessImage:{$concat:[constants.baseUrl,"/uploads/userProfilePic/","$businessImage"]},
-						 	profilePicPath:{$concat:[constants.baseUrl,"","$profilePicPath"]},
-						 	profileVideoPath:{$concat:[constants.baseUrl,"","$profileVideoPath"]},
-						 	totalFriends:{$size:"$friends"},
-						 	totalPosts:{$size:"$posts"},
-						 	interested:"$interestedList",
-						 	restaurants:"$restaurantsList",
-						 	account:"$account"
+						 	profilePicPath:{$concat:[constants.baseUrl,"","$profilePicPath"]}
 						}
  					},
 
  					]).exec().then(function(data){
- 						data[0].inviteLink = "Hey, I'm on PlayDate . Join me! Download it here: "+constants.baseUrl+"/"+data[0].inviteCode+" and use promo code "+data[0].inviteCode+" and earn "+constants.referralPoints+" PlayDate Coins.";
+ 						//data[0].inviteLink = "Hey, I'm on PlayDate . Join me! Download it here: "+constants.baseUrl+"/"+data[0].inviteCode+" and use promo code "+data[0].inviteCode+" and earn "+constants.referralPoints+" PlayDate Coins.";
  					   return apiResponse.successResponseWithData(res,"Successfully listed",data);
  					}).catch(function(err){
  						return apiResponse.ErrorResponse(res,err);

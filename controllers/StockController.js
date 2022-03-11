@@ -35,26 +35,22 @@ exports.getExchangeDetails = [
  				const interval = req.body.interval;
  				const range = req.body.range;
  				const symbols = req.body.symbols;
-
-				var options = {
-				  method: 'GET',
-				  url: 'https://yfapi.net/v8/finance/spark',
-				  params: {interval: interval,range:range,symbols:symbols},
-				  headers: {
-				    'x-api-key': apiKey
-				  }
-				};
-				console.log(options);
-
-				axios.request(options).then(function (response) {
-					console.log(response.data);
-					return apiResponse.successResponseWithData(res,"Successfully listed",response.data);
-				}).catch(function (error) {
-					console.error(error);
+ 				if(symbols != "" && symbols != undefined){
+ 					var query = {symbol : symbols};		
+ 				}else{
+ 					var query = { symbol: { $in: ['^DJI','^IXIC','^GSPC'] } };
+ 				}
+ 				
+ 				var aggre = {symbol:1,startTimestamp:1,endTimestamp:1,previousClose:1,chartPreviousClose:1,change:1,
+ 					timestamps:1,closePrice:1};
+			  StockModel.Exchange.find(query,aggre, function(err, StockList) {
+						if(StockList){
+							return apiResponse.successResponseWithData(res,"Successfully listed",StockList);    			
+						}else{
+							return apiResponse.unauthorizedResponse(res,'Record not found');
+				    }  
 				});
-
 	 		}catch(err){
-	 			console.log(err);
 	 			return apiResponse.ErrorResponse(res,err);
 	 		}
  	}

@@ -2,10 +2,15 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 
 var ExchangeSchema = new mongoose.Schema({
-	userId:{type:ObjectId,required:true},
-	toUserId:{type:ObjectId,required:true},
-	status:{type:Boolean,default:1},
-	activeStatus:{type:String,enum: ['Active','Delete','Pending','Reject','Block'], default:'Active'},
+	symbol:{type:String,required:false, default:null},
+	startTimestamp:{type:String,required:false, default:null},
+	endTimestamp:{type:String,required:false, default:null},
+	previousClose:{type:String,required:false, default:null},
+	chartPreviousClose:{type:String,required:false, default:null},
+	dataGranularity:{type:String,required:false, default:null},
+	change:{type:String,required:false, default:null},
+	timestamps:{type:Array,required:false, default:null},
+	closePrice:{type:Array,required:false, default:null},
 	entryDate:{type: Date, default: Date.now}
 });
 

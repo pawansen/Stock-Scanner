@@ -92,97 +92,99 @@ server.listen(app.get('port'),function(){
 	loggerMessage.info(`Stock Scanner listening on port ${app.get('port')}`);
 });
 
-app.get("/forex", function(req, res) {
+// app.get("/forex", function(req, res) {
 
-   res.render('forex.ejs');
+//    res.render('forex.ejs');
 	
-});
+// });
 
-app.get("/futures", function(req, res) {
+// app.get("/futures", function(req, res) {
 
-   res.render('futures.ejs');
+//    res.render('futures.ejs');
 	
-});
+// });
 
-app.get("/insider", function(req, res) {
+// app.get("/insider", function(req, res) {
 
-   res.render('insider.ejs');
+//    res.render('insider.ejs');
 	
-});
+// });
 
-app.get("/map", function(req, res) {
+// app.get("/map", function(req, res) {
 
-   res.render('map.ejs');
+//    res.render('map.ejs');
 	
-});
+// });
 
-app.get("/relative-performance", function(req, res) {
+// app.get("/relative-performance", function(req, res) {
 
-   res.render('relative_performance.ejs');
+//    res.render('relative_performance.ejs');
 	
-});
-
-
+// });
 
 
 app.get("/", function(req, res) {
+	return apiResponse.notFoundResponse(res, "Under Developemnt");
+});
 
-				var optionsBond = {
-				  method: 'GET',
-				  url: 'https://yfapi.net/v6/finance/quote',
-				  params: {lang: "en",region:"US",symbols:"^IRX,^FVX,^TNX,^TYX"},
-				  headers: {
-				    'x-api-key': 'wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI'
-				  }
-				};
+app.get("/", function(req, res) {
 
-				var optionsFuture = {
-				  method: 'GET',
-				  url: 'https://yfapi.net/v6/finance/quote/marketSummary',
-				  params: {lang: "en",region:"US"},
-				  headers: {
-				    'x-api-key': 'wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI'
-				  }
-				};
+				// var optionsBond = {
+				//   method: 'GET',
+				//   url: 'https://yfapi.net/v6/finance/quote',
+				//   params: {lang: "en",region:"US",symbols:"^IRX,^FVX,^TNX,^TYX"},
+				//   headers: {
+				//     'x-api-key': 'wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI'
+				//   }
+				// };
 
-
-				var options = {
-				  method: 'GET',
-				  url: 'https://yfapi.net/ws/screeners/v1/finance/screener/predefined/saved?count=10&scrIds=day_gainers',
-				  //params: {lang: "en",region:"US",symbols:"^IRX,^FVX,^TNX,^TYX"},
-				  headers: {
-				    'x-api-key': 'wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI'
-				  }
-				};
-
-				axios.request(options).then(function (response) {
-
-					axios.request(optionsFuture).then(function (responseFuture) {
+				// var optionsFuture = {
+				//   method: 'GET',
+				//   url: 'https://yfapi.net/v6/finance/quote/marketSummary',
+				//   params: {lang: "en",region:"US"},
+				//   headers: {
+				//     'x-api-key': 'wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI'
+				//   }
+				// };
 
 
-				axios.request(optionsBond).then(function (responseBond) {
+				// var options = {
+				//   method: 'GET',
+				//   url: 'https://yfapi.net/ws/screeners/v1/finance/screener/predefined/saved?count=10&scrIds=day_gainers',
+				//   //params: {lang: "en",region:"US",symbols:"^IRX,^FVX,^TNX,^TYX"},
+				//   headers: {
+				//     'x-api-key': 'wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI'
+				//   }
+				// };
+
+				// axios.request(options).then(function (response) {
+
+				// 	axios.request(optionsFuture).then(function (responseFuture) {
+
+
+				// axios.request(optionsBond).then(function (responseBond) {
 				
-						res.render('index.ejs',
-							{ "stockList": response.data.finance.result[0].quotes,
-							  "futures": responseFuture.data.marketSummaryResponse.result,
-							  "forexBond":responseBond.data.quoteResponse.result,
-							  "message":"",
-						      }
-							);
+				// 		res.render('index.ejs',
+				// 			{ "stockList": response.data.finance.result[0].quotes,
+				// 			  "futures": responseFuture.data.marketSummaryResponse.result,
+				// 			  "forexBond":responseBond.data.quoteResponse.result,
+				// 			  "message":"",
+				// 		      }
+				// 			);
 
 
-				}).catch(function (error) {
-					console.error(error);
-				});
+				// }).catch(function (error) {
+				// 	console.error(error);
+				// });
 
-					}).catch(function (error) {
-						console.error(error);
-					});
+				// 	}).catch(function (error) {
+				// 		console.error(error);
+				// 	});
 					
 
-				}).catch(function (error) {
-					console.error(error);
-				});
+				// }).catch(function (error) {
+				// 	console.error(error);
+				// });
 	
 });
 
