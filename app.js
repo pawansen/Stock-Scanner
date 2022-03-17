@@ -191,25 +191,22 @@ app.get("/", function(req, res) {
 app.use("/api/", apiRouter);
 
 /*throw 404 if URL not found*/
-// app.get("/", function(req, res) {
-// 	return apiResponse.notFoundResponse(res, "Page not found");
-// });
+app.get("/socket", function(req, res) {
+	 res.render('socket.ejs');
+});
 
 
 
 /** socket connection**/
 //io.adapter(redis({ host: 'localhost', port: 6379 }));
-// io.sockets.on('connection',function(socket){
-// 	const Socket = require('./controllers/ChatController.js'); 
-// 	console.log('----------- Socket Connection --------------');
-// 	socket.on('chat_message', function(data){
-// 	    io.sockets.emit('chat_message', data);
-// 	});
-// 	socket.on('chat_message_ios', function(data){
-// 	    socket.emit('chat_message_ios', data);
-// 	});
-// 	new Socket(socket,io.sockets);
-// });
+io.sockets.on('connection',function(socket){
+	const Socket = require('./controllers/StockSocketController.js'); 
+	console.log('----------- Socket Connection --------------');
+	socket.on('chat_message', function(data){
+	    io.sockets.emit('chat_message', data);
+	});
+	new Socket(socket,io.sockets);
+});
 
 app.use((err, req, res) => {
 	if(err.name == "UnauthorizedError"){

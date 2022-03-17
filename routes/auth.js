@@ -22,16 +22,20 @@ router.post('/get-profile-details',UserController.getProfileDetails);
 
 /** stock controller **/
 router.get('/get-exchange-details',StockController.getExchangeDetails);
-router.get('/get-future-stock',StockController.getFutureStock);
-router.get('/get-bonds-stock-list',StockController.getBondsStockList);
-router.get('/get-day-top-gainers-stock-list',StockController.getDaytopGainersList);
-router.get('/get-day-top-losers-stock-list',StockController.getDaytopLosersList);
-router.get('/get-most-active-stock-list',StockController.getMostActiveStockList);
-router.get('/get-stock-symbol',StockController.getSymbol);
-router.get('/get-stock-data',StockController.addYahooStockData);
+router.get('/get-stocks',StockController.getStocks);
+router.get('/search-stocks',StockController.searchStocks);
+// router.get('/get-bonds-stock-list',StockController.getBondsStockList);
+// router.get('/get-day-top-gainers-stock-list',StockController.getDaytopGainersList);
+// router.get('/get-day-top-losers-stock-list',StockController.getDaytopLosersList);
+// router.get('/get-most-active-stock-list',StockController.getMostActiveStockList);
+// router.get('/get-stock-symbol',StockController.getSymbol);
+// router.get('/get-stock-data',StockController.addYahooStockData);
 
 
 /** crons **/
 router.get('/cron/get-exchange-details',StockCronController.getExchangeDetails);
-
+router.get('/cron/get-stock-bond-forex',StockCronController.getBondForexStock);
+router.get('/cron/get-future-stock',StockCronController.getFutureStock);
+router.get('/cron/upload-nasdaq-data',StockCronController.uploadNesdeqData);
+router.get('/cron/upload-nyse-data',StockCronController.uploadNyseData);
 module.exports = router;
