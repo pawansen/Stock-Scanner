@@ -170,6 +170,44 @@ exports.searchStocks = [
  ];
 
 
+/**
+ * get exchange data list.
+ *
+ * @returns {Object}
+ */
+
+exports.getNewsFeed = [
+ 	// Validate fields.
+ 	// timezone America/New York (EST)
+ 	body("filters").trim(),
+ 	(req,res)=>{
+ 		try{
+
+ 				var limit = (req.body.limit) ? parseInt(req.body.limit) : 10;
+ 				var skip = (req.body.pageNo) ? utility.getOffset(req.body.pageNo) : 0;
+
+
+ 				var projection = {title:1,link:1,pubDate:1,guid:1,content:1,creator:1,
+ 					contentSnippet:1,contentEncoded:1};
+				StockModel.News.aggregate([
+				     {$skip : skip},
+				     {$limit : 10}
+				]).exec().then(function(data){
+					if(data.length > 0){
+						return apiResponse.successResponseWithData(res,"Successfully listed",data);
+					}else{
+						return apiResponse.notFoundResponse(res,"Record not found");
+					}
+					
+				}).catch(function(err){
+					return apiResponse.ErrorResponse(res,err);
+				});
+
+	 		}catch(err){
+	 			return apiResponse.ErrorResponse(res,err);
+	 		}
+ 	}
+ ];
 
 /**
  * get users list.

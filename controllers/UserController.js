@@ -32,8 +32,8 @@ ffmpeg.setFfmpegPath(ffmpegPath);
  */
 exports.register = [
  	// Validate fields.
- 	body("firstName").isLength({min:1}).trim().withMessage("First Name must be specified."),
- 	body("lastName").isLength({min:1}).trim().withMessage("Last Name must be specified."),
+ 	//body("firstName").isLength({min:1}).trim().withMessage("First Name must be specified."),
+ 	//body("lastName").isLength({min:1}).trim().withMessage("Last Name must be specified."),
  	body("email").isLength({ min: 1 }).trim().withMessage("Email must be specified.")
 		.isEmail().withMessage("Email must be a valid email address.").custom((value) => {
 			return UserModel.User.findOne({email : value}).then((user) => {
@@ -42,18 +42,25 @@ exports.register = [
 				}
 			});
 		}),
-    body("phoneNo").isLength({min:10}).trim().withMessage("Phone Number must be 10 characters.").isNumeric().
-    withMessage('Phone Number should be numeric only').custom((value)=>{
-    	return UserModel.User.findOne({phoneNo:value}).then((user)=>{
-    		if(user){
-    			return Promise.reject("Phone Number already in use");
-    		}
-    	});
-    }),
+   // body("phoneNo").isLength({min:10}).trim().withMessage("Phone Number must be 10 characters.").isNumeric().
+    // withMessage('Phone Number should be numeric only').custom((value)=>{
+    // 	return UserModel.User.findOne({phoneNo:value}).then((user)=>{
+    // 		if(user){
+    // 			return Promise.reject("Phone Number already in use");
+    // 		}
+    // 	});
+    // }),
     body("password").isLength({min:6}).trim().withMessage("Password must be 6 characters or greater."),
-    body("city").isLength({min:1}).trim().withMessage("City must be specified."),
-    body("companyName").isLength({min:1}).trim().withMessage("Company Name must be specified."),
-    body("country").isLength({min:1}).trim().withMessage("Country must be specified."),
+    body("confirmPassword").isLength({min:6}).trim().withMessage("Confirm Password should not be empty").
+     custom((value,{req}) =>{
+        if(value !== req.body.password){
+            return Promise.reject("Password confirmation does not match with password");
+        }
+        return true;
+    }),
+    //body("city").isLength({min:1}).trim().withMessage("City must be specified."),
+   // body("companyName").isLength({min:1}).trim().withMessage("Company Name must be specified."),
+    //body("country").isLength({min:1}).trim().withMessage("Country must be specified."),
 	(req,res) =>{
 		try{
 			// Extract the validation errors from a request.
@@ -70,14 +77,8 @@ exports.register = [
 					// Create User object with escaped and trimmed data
 					var users =
 						{
-							fullName: req.body.firstName.toLowerCase() +" "+req.body.lastName.toLowerCase(),
-							firstName: req.body.firstName.toLowerCase(),
-							lastName: req.body.lastName.toLowerCase(),
+
 							email: req.body.email,
-							city: req.body.city,
-							companyName: req.body.companyName,
-							country: req.body.country,
-							phoneNo: req.body.phoneNo,
 							password: hash,
 							confirmOTP: otp,
 							userType:"Person",
@@ -85,6 +86,7 @@ exports.register = [
 							inviteCode:utility.randomNumber(8),
 							ipAddress:ip.address(),
 						};
+						console.log(users)
 						if(req.body.inviteCode != ""){
 							users.referredByUserId=body.inviteUserId;
 						}
@@ -125,9 +127,9 @@ exports.register = [
 									let userSession ={
 										userID:userResponse._id,
 										sessionKey:utility.randomValueHex(32),
-										deviceType:req.body.deviceType,
-										deviceID:req.body.deviceID,
-										deviceToken:req.body.deviceToken,
+										deviceType:"Web",
+										deviceID:"123",
+										deviceToken:"123456",
 										ipAddress:ip.address(),
 										token:userData.token,
 									};
@@ -838,7 +840,7 @@ exports.socialSignIn = [
 													let userAccounts ={
 														userId:userResponse._id,
 													};
-													UserModel.UserAccount.create(userAccounts,function(err){});
+													//UserModel.UserAccount.create(userAccounts,function(err){});
 
 													let userData = {
 														id:userResponse._id,
@@ -897,7 +899,7 @@ exports.socialSignIn = [
 															let userAccounts ={
 																$inc:{totalPoints:constants.referralPoints,currentPoints:constants.referralPoints}
 														    };
-										 					UserModel.UserAccount.findOneAndUpdate({userId:new ObjectId(userResponse._id)},userAccounts).catch(err =>{});
+										 					//UserModel.UserAccount.findOneAndUpdate({userId:new ObjectId(userResponse._id)},userAccounts).catch(err =>{});
 															/** referrals transaction **/
 															let UserTransactions ={
 																userId:userResponse._id,
@@ -906,7 +908,7 @@ exports.socialSignIn = [
 																narration:"Referral Bonus",
 																referralGetUserId:new ObjectId(body.inviteUserId)
 															};
-															UserModel.UserTransaction.create(UserTransactions,function(err){});
+															//UserModel.UserTransaction.create(UserTransactions,function(err){});
 														}
 														/** signup get points **/
 														let userAccounts ={
@@ -1017,7 +1019,7 @@ exports.socialSignIn = [
 															let userAccounts ={
 																$inc:{totalPoints:constants.referralPoints,currentPoints:constants.referralPoints}
 														    };
-										 					UserModel.UserAccount.findOneAndUpdate({userId:new ObjectId(userResponse._id)},userAccounts).catch(err =>{});
+										 					//UserModel.UserAccount.findOneAndUpdate({userId:new ObjectId(userResponse._id)},userAccounts).catch(err =>{});
 															/** referrals transaction **/
 															let UserTransactions ={
 																userId:userResponse._id,
@@ -1026,7 +1028,7 @@ exports.socialSignIn = [
 																narration:"Referral Bonus",
 																referralGetUserId:new ObjectId(body.inviteUserId)
 															};
-															UserModel.UserTransaction.create(UserTransactions,function(err){});
+															//UserModel.UserTransaction.create(UserTransactions,function(err){});
 														}
 														/** signup get points **/
 														let userAccounts ={

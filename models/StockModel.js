@@ -78,8 +78,23 @@ var StockDescriptionSchema = new mongoose.Schema({
 	entryDate:{type: Date, default: Date.now}
 });
 
+
+var NewsSchema = new mongoose.Schema({
+	newsId:{type:String,required:false, default:null},
+	title:{type:String,required:false, default:null},
+	link:{type:String,required:false, default:null},
+	pubDate:{type:String,required:false, default:null},
+	guid:{type:String,required:false, default:null},
+	content:{type:String,required:false, default:null},
+	creator:{type:String,required:false, default:null},
+	contentSnippet:{type:String,required:false, default:null},
+	contentEncoded:{type:String,required:false, default:null},
+	entryDate:{type: Date, default: Date.now}
+});
+
 StockSchema.index({ symbol:1 },{ unique: true });
 
 var ExchangeSchema = mongoose.model("stock-exchange",ExchangeSchema);
 var StocksSchema = mongoose.model("stocks",StockSchema);
-module.exports = {Exchange:ExchangeSchema,Stocks:StocksSchema};
+var NewsSchema = mongoose.model("news-feed",NewsSchema);
+module.exports = {Exchange:ExchangeSchema,Stocks:StocksSchema,News:NewsSchema};

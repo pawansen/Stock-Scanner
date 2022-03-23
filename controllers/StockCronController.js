@@ -21,7 +21,8 @@ var ObjectId = mongoose.Types.ObjectId;
 const axios = require('axios').default;
 const apiKey = "wquq92e3rm6vROKusWn4m1tzXST8k0cP7n5mZ7vI"
 const csvtojson = require('csvtojson');
-
+let Parser = require('rss-parser');
+let parser = new Parser();
 const nasdaqFile = "./dump/nasdaq_screener_1647424341554.csv";
 const nyseFile = "./dump/nasdaq_screener_1647424348570.csv";
 
@@ -350,6 +351,51 @@ exports.getFutureStock = async function(req,res) {
 					console.error(error);
 				});
 
+	 		}catch(err){
+	 			console.log(err);
+	 		}
+
+};
+
+/**
+ * get bond forex list.
+ *
+ * @returns {Object}
+ */
+
+exports.getNewsLive = async function(req,res) {
+
+ 		try{
+
+ 						let feedData = [];
+
+						let feed = await parser.parseURL('https://www.reutersagency.com/feed/?taxonomy=best-sectors&post_type=best');
+						 //console.log(feed)
+						feed.items.forEach(item => {
+							let buff = new Buffer(item.link);
+						    //console.log(item.title + ':=============:' + item.link)
+						    let feedResponse = {
+						    	"newsId":buff.toString('base64'),
+						    	"title": item.title,
+						    	"link": item.link,
+						    	"pubDate": item.pubDate,
+						    	"guid": item.guid,
+						    	"description": item.description,
+						    	"content":item.content,
+						    	"creator":item.creator,
+						    	"contentSnippet":item.contentSnippet,
+						    	"contentEncoded":item['content:encoded'],
+						    }
+						    StockModel.News.create(feedResponse,function(err){});
+						    feedData.push(feedResponse);
+
+						});
+						
+						if(feedData.length > 0){
+							//StockModel.News.create(feedData,function(err){});
+						}
+						
+						return apiResponse.successResponseWithData(res,"Successfully listed",feedData);
 	 		}catch(err){
 	 			console.log(err);
 	 		}
