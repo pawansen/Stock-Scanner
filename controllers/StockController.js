@@ -85,7 +85,7 @@ exports.getStocks = [
  				}else if(req.body.quoteType == "PENNY"){
  					where.searchType = "All";
  				  where.quoteType = "EQUITY";
- 				  where.marketCurrentPrice = {$lte:'5'};
+ 				  where.marketCurrentPrice = {$lte:5};
  				}else{
  					where.searchType = "All";
  				}
@@ -103,6 +103,102 @@ exports.getStocks = [
 				     },
 				     {$skip : skip},
 				     {$limit : 10}
+				]).exec().then(function(data){
+					if(data.length > 0){
+						return apiResponse.successResponseWithData(res,"Successfully listed",data);
+					}else{
+						return apiResponse.notFoundResponse(res,"Record not found");
+					}
+					
+				}).catch(function(err){
+					return apiResponse.ErrorResponse(res,err);
+				});
+
+	 		}catch(err){
+	 			return apiResponse.ErrorResponse(res,err);
+	 		}
+ 	}
+ ];
+
+
+
+/**
+ * get exchange data list.
+ *
+ * @returns {Object}
+ */
+
+exports.getTopStocks = [
+ 	// Validate fields.
+ 	// timezone America/New York (EST)
+ 	body("filters").trim(),
+ 	(req,res)=>{
+ 		try{
+
+ 				var limit = (req.body.limit) ? parseInt(req.body.limit) : 10;
+ 				var skip = (req.body.pageNo) ? utility.getOffset(req.body.pageNo) : 0;
+ 				var where = {marketCurrentPrice: {$gt:1000}};
+ 				where.quoteType = "EQUITY";
+
+ 				console.log(where);
+ 				var projection = {symbol:1,searchType:1,shortName:1,quoteType:1,stockVisibleType:1,typeDisplay:1,
+ 					longName:1,exchange:1,fullExchangeName:1,region:1,sector:1,industry:1,volume:1,marketPreviousClosePrice:1,
+ 					marketChangePrice:1,marketCurrentPrice:1,marketChangePercent:1,marketTime:1,fiftyTwoWeekLowChange:1,fiftyTwoWeekLowChangePercent:1,
+ 					fiftyTwoWeekRange:1,fiftyTwoWeekHighChange:1,fiftyTwoWeekHighChangePercent:1,fiftyTwoWeekLow:1,fiftyTwoWeekHigh:1};
+				StockModel.Stocks.aggregate([
+					   {$project:projection },
+					   {
+		            $match: where,
+				     },
+				     
+				     {$skip : skip},
+				     {$limit : 10}
+				]).exec().then(function(data){
+					if(data.length > 0){
+						return apiResponse.successResponseWithData(res,"Successfully listed",data);
+					}else{
+						return apiResponse.notFoundResponse(res,"Record not found");
+					}
+					
+				}).catch(function(err){
+					return apiResponse.ErrorResponse(res,err);
+				});
+
+	 		}catch(err){
+	 			return apiResponse.ErrorResponse(res,err);
+	 		}
+ 	}
+ ];
+
+
+/**
+ * get exchange data list.
+ *
+ * @returns {Object}
+ */
+
+exports.getStocksWithTech = [
+ 	// Validate fields.
+ 	// timezone America/New York (EST)
+ 	body("filters").trim(),
+ 	(req,res)=>{
+ 		try{
+
+ 				var limit = (req.body.limit) ? parseInt(req.body.limit) : 10;
+ 				var skip = (req.body.pageNo) ? utility.getOffset(req.body.pageNo) : 0;
+ 				var where = {quoteType: "EQUITY",sector:{$ne:""}};
+
+
+ 				var projection = {symbol:1,sector:1,industry:1,
+ 					marketCurrentPrice:1,marketChangePercent:1,quoteType:1};
+				StockModel.Stocks.aggregate([
+					   {$project:projection },
+					   {
+		            $match: where,
+				     },
+				     
+				     {$skip : skip},
+				     {$limit : limit}
 				]).exec().then(function(data){
 					if(data.length > 0){
 						return apiResponse.successResponseWithData(res,"Successfully listed",data);

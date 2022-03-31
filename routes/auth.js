@@ -25,6 +25,8 @@ router.post('/get-exchange-details',StockController.getExchangeDetails);
 router.post('/get-stocks',StockController.getStocks);
 router.post('/search-stocks',StockController.searchStocks);
 router.post('/get-news-feed',StockController.getNewsFeed);
+router.post('/get-top-stocks',StockController.getTopStocks);
+router.post('/get-stocks-with-tech',StockController.getStocksWithTech);
 // router.get('/get-bonds-stock-list',StockController.getBondsStockList);
 // router.get('/get-day-top-gainers-stock-list',StockController.getDaytopGainersList);
 // router.get('/get-day-top-losers-stock-list',StockController.getDaytopLosersList);

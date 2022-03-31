@@ -67,7 +67,7 @@ exports.uploadNesdeqData = [
 			        	'industry':Industry,
 			        	'volume':Volume,
 			        	'marketCap':MarketCap,
-			        	'marketCurrentPrice':LastSale,
+			        	'marketCurrentPrice':(LastSale > 0) ? Number(LastSale) : 0,
 			        	'marketPreviousClosePrice':(NetChange > 0) ? Number(LastSale) - Number(NetChange) : Number(LastSale) + Number(NetChange.substring(1)),
 			        	'marketChangePrice':NetChange,
 			        	'marketChangePercent':ChangePercentage
@@ -125,7 +125,7 @@ exports.uploadNyseData = [
 			        	'industry':Industry,
 			        	'volume':Volume,
 			        	'marketCap':MarketCap,
-			        	'marketCurrentPrice':LastSale,
+			        	'marketCurrentPrice':(LastSale > 0) ? Number(LastSale) : 0,
 			        	'marketPreviousClosePrice':(NetChange > 0) ? Number(LastSale) - Number(NetChange) : Number(LastSale) + Number(NetChange.substring(1)),
 			        	'marketChangePrice':NetChange,
 			        	'marketChangePercent':ChangePercentage
