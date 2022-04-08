@@ -363,7 +363,7 @@ exports.getFutureStock = async function(req,res) {
  * @returns {Object}
  */
 
-exports.getNewsLive = async function(req,res) {
+exports.getNewsLiveOLD = async function(req,res) {
 
  		try{
 
@@ -396,6 +396,65 @@ exports.getNewsLive = async function(req,res) {
 						}
 						
 						return apiResponse.successResponseWithData(res,"Successfully listed",feedData);
+	 		}catch(err){
+	 			console.log(err);
+	 		}
+
+};
+
+
+exports.getNewsLive = async function(req,res) {
+
+ 		try{
+
+						var options = {
+						  method: 'GET',
+						  url: 'https://api.marketaux.com/v1/news/all?filter_entities=false&entities=false&similar=false&countries=us,ca&limit=50&page=1&language=en&api_token=rum8EmPntRVoo40gGrc6wY8Mlm1ptJNdCqWAJxLj',
+						};
+
+					    axios.request(options).then(function (response) {
+
+			            const results = response.data.data.map((items) => {
+		
+						    let feedResponse = {
+						    	"newsId":items['uuid'],
+						    	"title": items['title'],
+						    	"description": items['description'],
+						    	"keywords": items['keywords'],
+						    	"snippet": items['snippet'],
+						    	"url": items['url'],
+						    	"imageUrl":items['image_url'],
+						    	"publishedAt":items['published_at'],
+						    	"source":items['source']
+						    }
+						    StockModel.News.create(feedResponse,function(err){});
+						    // if(items['similar'].length > 0){
+
+						    // 	items['similar'].map((itemss) => {
+						    // 		let feedResponses = {
+									 //    	"newsId":itemss['uuid'],
+									 //    	"title": itemss['title'],
+									 //    	"description": itemss['description'],
+									 //    	"keywords": itemss['keywords'],
+									 //    	"snippet": itemss['snippet'],
+									 //    	"url": itemss['url'],
+									 //    	"imageUrl":itemss['image_url'],
+									 //    	"publishedAt":itemss['published_at'],
+									 //    	"source":itemss['source']
+									 //    }
+									 //    StockModel.News.create(feedResponses,function(err){});
+						    // 	}
+						    // }
+
+						    //console.log(feedResponse)
+			    	     });
+
+					  return apiResponse.successResponseWithData(res,"Successfully listed news",response.data.data);
+
+				}).catch(function (error) {
+					console.error(error);
+				});
+
 	 		}catch(err){
 	 			console.log(err);
 	 		}

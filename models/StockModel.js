@@ -82,13 +82,13 @@ var StockDescriptionSchema = new mongoose.Schema({
 var NewsSchema = new mongoose.Schema({
 	newsId:{type:String,required:false, default:null},
 	title:{type:String,required:false, default:null},
-	link:{type:String,required:false, default:null},
-	pubDate:{type:String,required:false, default:null},
-	guid:{type:String,required:false, default:null},
-	content:{type:String,required:false, default:null},
-	creator:{type:String,required:false, default:null},
-	contentSnippet:{type:String,required:false, default:null},
-	contentEncoded:{type:String,required:false, default:null},
+	description:{type:String,required:false, default:null},
+	keywords:{type:String,required:false, default:null},
+	snippet:{type:String,required:false, default:null},
+	url:{type:String,required:false, default:null},
+	imageUrl:{type:String,required:false, default:null},
+	publishedAt:{type:String,required:false, default:null},
+	source:{type:String,required:false, default:null},
 	entryDate:{type: Date, default: Date.now}
 });
 
